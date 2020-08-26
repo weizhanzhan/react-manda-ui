@@ -1,21 +1,20 @@
 import React from 'react'
-import face1 from '../../assets/images/avatar1.jpg'
 import StyledAvatar, { StatusIcon ,AvatarClip,AvatarImage} from './style'
 // import PropTypes from 'prop-types'
 
-function Avatar(props) {
+function Avatar({src,size="48px",status,statusIconSize = "8px",...rest}) {
   return (
-    <StyledAvatar>
-      <StatusIcon></StatusIcon>
-      <AvatarClip>
-        <AvatarImage src={face1} alt="" />
+    <StyledAvatar {...rest}>
+      { status && <StatusIcon status={status} size={statusIconSize}></StatusIcon>}
+      <AvatarClip size={size}>
+        <AvatarImage src={src} alt="" />
       </AvatarClip>
     </StyledAvatar>
   )
 }
 
 Avatar.propTypes = {
-
+ 
 }
 
 export default Avatar
