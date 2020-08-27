@@ -94,3 +94,112 @@ const circleMixinFunc = color => css`
   background-color:${color};
 `
 ```
+## PropTypes校验传值的类型
+
+```js
+import PropTypes from 'prop-types'
+
+
+Avatar.propTypes = {
+  src:PropTypes.string.isRequired,
+  size:PropTypes.string,
+  status:PropTypes.oneOf(['online','offline']),
+  statusIconSize:PropTypes.string
+}
+
+```
+
+
+## 配置相对路径 指定src为根目录
+- 新建jsconfig.json在根目录
+```json
+{
+  "compilerOptions": {
+    "baseUrl": "src"
+  },
+  "include": ["src"],
+  "exclude": ["node_modules","**/node_modules/*"]
+}
+```
+
+## Hygen模板生成器
+安装
+```
+npm i -g hygen
+```
+
+初始化
+
+```
+hygen init self
+
+```
+
+再次执行
+```
+hygen generator new component
+```
+会在.template文件夹下生成一个component文件夹
+
+然后新建 index.ejs.t 、 style.ejs.t 和 stories.ejs.t
+内容分别为
+index.ejs.t
+```
+---
+to: src/components/<%= name %>/index.js
+---
+
+import React from 'react'
+import Styled<%= name %> from './style'
+import PropTypes from 'prop-types'
+
+function <%= name %>({children, ...rest}) {
+  return (
+    <Styled<%= name %> {...rest}>
+      {children}
+    </Styled<%= name %>>
+  )
+}
+
+<%= name %>.propTypes = {
+  children:PropTypes.any
+}
+
+export default <%= name %>
+
+
+
+```
+
+style.ejs.t
+```
+---
+to: src/components/<%= name %>/style.js
+---
+
+import styled from 'styled-components'
+
+const Styled<%= name %> = styled.div``;
+
+export default Styled<%= name %>
+
+
+
+```
+stories.ejs.t,<%= h.changeCase.lcFirst(name) %>是为了处理把大写字母变成小写
+```
+---
+to: src/components/<%= name %>/<%= h.changeCase.lcFirst(name) %>.stories.js
+---
+
+import React from 'react'
+import <%= name %> from "."
+
+export default {
+  title:"<%= name %>",
+  component:<%= name %>
+}
+
+export const Default = () => <<%= name %>>默认</<%= name %>>
+
+```
