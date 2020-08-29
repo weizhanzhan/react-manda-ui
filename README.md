@@ -3,6 +3,11 @@
 ## 目录
 
 - [基础概括](#基础概括)
+- [styled-component](#styled-component)
+- [PropTypes校验传值的类型](#PropTypes校验传值的类型)
+- [配置绝对路径](#配置绝对路径)
+- [Hygen模板生成器](#Hygen模板生成器)
+- [fontawesome图标库](#fontawesome图标库)
 
 ## 基础概括
 
@@ -116,7 +121,8 @@ Avatar.propTypes = {
 ```
 
 
-## 配置相对路径 指定src为根目录
+## 配置绝对路径
+指定src为根目录
 - 新建jsconfig.json在根目录
 ```json
 {
@@ -210,7 +216,7 @@ export const Default = () => <<%= name %>>默认</<%= name %>>
 
 ```
 
-## 使用 fontawesome图标库
+## fontawesome图标库
 
 ```
 yarn add @fortawesome/react-fontawesome  //fontawesome的react组件
@@ -220,3 +226,12 @@ yarn add @fortawesome/free-regular-svg-icons //空心图标库
 yarn add @fortawesome/free-solid-svg-icons  //实心图标库
 
 ```
+
+## css
+1rem等于10像素
+`
+html{
+  font-size: 62.5%;
+}
+
+`

@@ -1,6 +1,6 @@
 import React from 'react'
 import face1 from 'assets/images/avatar1.jpg'
-import "story.css"
+
 import Avatar from '.'
 export default {
   title:'Avatar',
