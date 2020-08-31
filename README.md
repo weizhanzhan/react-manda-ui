@@ -105,6 +105,22 @@ const circleMixinFunc = color => css`
   background-color:${color};
 `
 ```
+- 页面组件中，如果想想使用主题的颜色，但又不想创建一个styled component
+1.styled-component支持给组件传递一个css使用，用来编写css样式，写法和styled-component一致
+在.babelrc中使用插件 
+`
+{
+  "plugins": ["macros"]
+}
+//在组件中使用
+<div css={`
+  background-color:${({theme})=>theme.darkPurple};
+  width:100px
+`}>
+  <MenuItem showBadge active icon={faCommentDots}></MenuItem>
+</div>
+`
+
 ## PropTypes校验传值的类型
 
 ```js
