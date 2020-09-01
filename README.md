@@ -8,6 +8,7 @@
 - [配置绝对路径](#配置绝对路径)
 - [Hygen模板生成器](#Hygen模板生成器)
 - [fontawesome图标库](#fontawesome图标库)
+- [React](#React)
 
 ## 基础概括
 
@@ -108,19 +109,52 @@ const circleMixinFunc = color => css`
 - 页面组件中，如果想想使用主题的颜色，但又不想创建一个styled component
 1.styled-component支持给组件传递一个css使用，用来编写css样式，写法和styled-component一致
 在.babelrc中使用插件 
-`
+```js
 {
   "plugins": ["macros"]
 }
+
 //在组件中使用
+//页面中一定要引入
+import "styled-components/macro"
 <div css={`
   background-color:${({theme})=>theme.darkPurple};
   width:100px
 `}>
   <MenuItem showBadge active icon={faCommentDots}></MenuItem>
 </div>
-`
+```
+2.第二种办法使用styled-component的hooks
+```js
+import { useTheme } from 'styled-components'
+function Search({placeholder="请输入内容...",...rest}){
+  const theme = useTheme()
+  return(
+    <Input placeholder={placeholder} prefix={<Icon icon={SearchIcon} color={theme.gray3} width={18} height={18}></Icon>} {...rest}></Input>
+  )
+}
+```
+- 在写css的时候，如果要修改其里面其他组件的样式可以通过${组件名称}{ css...}直接修改
+```js
+const StyledNavBar = styled.nav`
+  display:grid;
+  grid-template-rows:1fr 4fr;
+  width:100px;
+  height:100vh;
+  background-color:${({theme})=>theme.darkPurple};
+  padding:30px 0;
 
+  /* 修改里面组件的样式 */
+  ${StyledAvatar}{
+    justify-self:center;
+    ${StatusIcon}{
+      &::before{
+        background-color:${({theme})=>theme.darkPurple}
+      }
+    }
+  }
+`;
+```
 ## PropTypes校验传值的类型
 
 ```js
@@ -251,3 +285,21 @@ html{
 }
 
 `
+# React
+- 把一个函数组件当作自己的子组件并导出去
+```js
+const Input = ()=>{
+  return (
+    //...
+  )
+}
+
+const Child = () =>{
+  //....
+}
+
+//重要一步
+
+Input.Child = Child 
+//这样就导出去了 ，使用的时候<Input.Child>访问子组件
+```
